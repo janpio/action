@@ -1,6 +1,7 @@
 
 const core = require('@actions/core');
 const fs = require('fs');
+const path = require('path');
 const yaml = require('js-yaml');
 const { setupStack } = require('./stack');
 const { setupGitHub, registerRunner, fetchPublicSSHKeys, fetchCollaboratorsWithWriteAccess } = require('./github');
@@ -9,17 +10,10 @@ const { SUPPORTED_RUNNER_OSES, SUPPORTED_RUNNER_ARCHES } = require('./constants'
 
 let actionInputs = {};
 
-const currentWorkingDirectory = process.cwd();
-console.log('Current Working Directory:', currentWorkingDirectory);
-
-fs.readdir(currentWorkingDirectory, (err, files) => {
-  if (err) {
-    console.error('Error reading directory:', err);
-    return;
-  }
-
-  console.log('Files in Current Working Directory:', files);
-});
+// Get the current directory of the file being executed
+const currentDirectory = __dirname;
+const parentDirectory = path.resolve(currentDirectory, '..');
+const actionYmlPath = path.join(parentDirectory, 'action.yml');
 
 // transform input names from foo-bar to fooBar
 function transformInputName(inputName) {
@@ -31,7 +25,7 @@ function transformInputName(inputName) {
 }
 
 // Read the action YAML file to find input default values and types
-const yamlFile = fs.readFileSync('action.yml', 'utf8');
+const yamlFile = fs.readFileSync(actionYmlPath, 'utf8');
 const { inputs } = yaml.load(yamlFile);
 for (const inputName in inputs) {
   if (inputs.hasOwnProperty(inputName)) {
