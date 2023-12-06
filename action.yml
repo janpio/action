@@ -1,8 +1,9 @@
 name: 'runs-on'
 description: 'Spawn ephemeral self-hosted runners for GitHub Action'
 author: 'Cyril Rohr'
-icon: 'cloud-lightning'
-color: 'black'
+branding:
+  icon: 'cloud-lightning'
+  color: 'black'
 
 inputs:
   github-app-id:
