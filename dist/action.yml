@@ -1,0 +1,77 @@
+name: 'runs-on'
+description: 'Spawn ephemeral self-hosted runners for GitHub Action'
+author: 'Cyril Rohr'
+branding:
+  icon: 'cloud-lightning'
+  color: 'black'
+
+inputs:
+  github-app-id:
+    description: GitHub App ID.
+    required: true
+  github-app-private-key:
+    description: GitHub App Private Key
+    required: true
+  github-base-url:
+    description: GitHub API base URL.
+    required: false
+    default: "https://api.github.com"
+  dry-run:
+    description: 'Whether to perform a dry run. Defaults to false.'
+    required: false
+    default: "false"
+  stack-name:
+    description: 'Value for the `stack` tag assigned to all created AWS resources.'
+    required: false
+    default: "runs-on"
+  spot-instances:
+    description: 'Whether to allow spot instances. Defaults to true.'
+    required: false
+    default: "true"
+  storage-type:
+    description: 'Storage type (io2, io1, gp3, gp2).'
+    required: false
+    default: "io2"
+  storage-size:
+    description: 'Size of the storage in GB.'
+    required: false
+    default: "120"
+  storage-iops:
+    description: 'IOPS for io1 or io2 storage type. Ignored if storage-type is not io1 or io2.'
+    required: false
+    default: "600"
+  admins:
+    description: 'List of admins (GitHub usernames) who can SSH into the runner instances. Comma-separated.'
+    required: false
+    default: "@collaborators/push"
+  runner-types:
+    description: List of runner types that can be used, by decreasing order of preference. Comma-separated.
+    required: true
+    default: "t3.2xlarge,t2.2xlarge"
+  runner-image-id:
+    description: 'ID of the AMI to use for the runner.'
+    required: false
+  runner-os:
+    description: 'Operating system of the runner to spawn. For now, only ubuntu22 is supported. Ignored if runner-image-id is provided.'
+    default: "ubuntu22"
+  runner-arch:
+    description: 'Architecture of the runner to spawn. For now, only x64 is supported. Ignored if runner-image-id is provided.'
+    default: "x64"
+  runner-agent-version:
+    description: 'Version of the runner agent to use.'
+    required: false
+    default: "2.311.0"
+  
+outputs:
+  runner-label:
+    description: 'Label of the runner that was spawned.'
+  runner-type:
+    description: 'Type of the runner that was spawned.'
+  runner-instance-id:
+    description: 'ID of the runner instance that was spawned.'
+  runner-instance-ipv4:
+    description: 'IP of the runner instance that was spawned.'
+
+runs:
+  using: 'node20'
+  main: dist/index.js
