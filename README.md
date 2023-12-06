@@ -93,6 +93,18 @@ jobs:
           echo "Hello from your self-hosted runner $HOSTNAME"
 ```
 
+## Roadmap
+
+* ~~spot instance support~~
+* ~~cycle through instance types until one available~~
+* ~~automatically terminate instance if no job received within 20min~~
+* ~~automatically terminate instance if job not completed within 8h~~
+* ~~allow to specify storage type, iops, size~~
+* ~~allow repo admins to SSH into the runners~~
+* allow to set max daily budget and/or concurrency
+* macos support
+* allow user-provided AMIs (need to make the user-data script a bit more clever)
+
 ## FAQ
 
 Q: Why use a GitHub App instead of a GitHub Token for authentication?
