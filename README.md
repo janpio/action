@@ -40,10 +40,19 @@ The action itself will add about 20s to 30s to your workflows.
 The required steps to enable the runs-on action are as follows:
 
 * generate a github app with the "administration" repository permission, and select the repositories this action can run on.
+
+[GitHub App permissions](docs/img/github-app-permissions.png)
+[GitHub App repositories](docs/img/github-app-repositories.png)
+
 * store the github app ID and PRIVATE KEY in the repository secrets as `RUNS_ON_APP_ID` and `RUNS_ON_APP_PRIVATE_KEY`
+
 * store your AWS credentials in the repository secrets, using the official [aws-actions/configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) action.
-* add the `runs-on/action` to your workflow
-* profit!
+
+[GitHub App repositories](docs/img/repository-action-secrets.png)
+
+* add the `runs-on/action` to your workflow (see example below)
+
+* watch your CI fly!
 
 ## Example workflow file
 
