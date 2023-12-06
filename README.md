@@ -69,35 +69,34 @@ jobs:
     outputs:
       runner-label: ${{ steps.runs_on.outputs.runner-label }}
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: RunsOn
+      - uses: runs-on/action@v1
         id: runs_on
-        uses: runs-on/action@v1
         with:
           github-app-id: ${{ secrets.RUNS_ON_APP_ID }}
           github-app-private-key: ${{ secrets.RUNS_ON_APP_PRIVATE_KEY }}
           runner-types: "c7a.large,c6a.large"
           runner-os: ubuntu22
           spot-instances: true
-  all:
+
+  main_job:
     name: Job that executes on self-hosted runner
     needs: spawn_runner
     runs-on: ${{ needs.spawn_runner.outputs.runner-label }}
     steps:
       - name: "Hello World"
         run: |
-          echo "hello from $HOSTNAME"
+          echo "Hello from your self-hosted runner $HOSTNAME"
 ```
 
 ## FAQ
 
 Q: Why use a GitHub App instead of a GitHub Token for authentication?
-A: The default ${{ github.token }} generated for each workflow cannot have administrative permission to create new runners from the workflow, so we either need a Personal Access Token (PAT), or a GitHub App ID and Private Key. The issue with PATs is that they are linked to a specific user, and have a default expiration date, which is more brittle than relying on a GitHub App.
+A: The default `${{ github.token }}` generated for each workflow cannot have administrative permission to create new runners from the workflow, so we either need a Personal Access Token (PAT), or a GitHub App ID and Private Key. The issue with PATs is that they are linked to a specific user, and have a default expiration date, which is more brittle than relying on a GitHub App.
 
 Q: What software is installed on the runners?
 A: For Ubuntu22 x64 runners, we use the exact same tools than the official GitHub runners. So your workflows should work there without any changes.
