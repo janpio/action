@@ -9,6 +9,18 @@ const { SUPPORTED_RUNNER_OSES, SUPPORTED_RUNNER_ARCHES } = require('./constants'
 
 let actionInputs = {};
 
+const currentWorkingDirectory = process.cwd();
+console.log('Current Working Directory:', currentWorkingDirectory);
+
+fs.readdir(currentWorkingDirectory, (err, files) => {
+  if (err) {
+    console.error('Error reading directory:', err);
+    return;
+  }
+
+  console.log('Files in Current Working Directory:', files);
+});
+
 // transform input names from foo-bar to fooBar
 function transformInputName(inputName) {
   const words = inputName.split('-');
