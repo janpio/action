@@ -107,13 +107,13 @@ jobs:
 
 ## FAQ
 
-Q: Why use a GitHub App instead of a GitHub Token for authentication?
+Q: Why use a GitHub App instead of a GitHub Token for authentication?  
 A: The default `${{ github.token }}` generated for each workflow cannot have administrative permission to create new runners from the workflow, so we either need a Personal Access Token (PAT), or a GitHub App ID and Private Key. The issue with PATs is that they are linked to a specific user, and have a default expiration date, which is more brittle than relying on a GitHub App.
 
-Q: What software is installed on the runners?
+Q: What software is installed on the runners?  
 A: For Ubuntu22 x64 runners, we use the exact same tools than the official GitHub runners. So your workflows should work there without any changes.
 
-Q: Can I use caches?
+Q: Can I use caches?  
 A: Yes, and they are very fast to download/upload since AWS has a pretty crazy bandwidth (compared to other self-hosted providers). 
 
 Q: Is this free to use?
