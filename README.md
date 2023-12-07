@@ -116,5 +116,5 @@ A: For Ubuntu22 x64 runners, we use the exact same tools than the official GitHu
 Q: Can I use caches?  
 A: Yes, and they are very fast to download/upload since AWS has a pretty crazy bandwidth (compared to other self-hosted providers). 
 
-Q: Is this free to use?
+Q: Is this free to use?  
 A: For non-commercial use, yes. For commercial use, it's currently free to try for 30 days. After that, there will be a one-time license fee to pay to support ongoing development costs and AMI generation and hosting costs. This part is still in flux but in any case I want this to be a no-brainer if you're currently paying for additional GitHub build minutes, or any other provider.
